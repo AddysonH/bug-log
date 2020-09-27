@@ -3,7 +3,7 @@ import BaseController from "../utils/BaseController"
 import auth0provider from "@bcwdev/auth0provider"
 import { bugService } from "../services/BugService"
 
-export class BugsController extends BaseController {
+export class BugController extends BaseController {
     constructor() {
         super("api/bugs")
         this.router
@@ -18,6 +18,7 @@ export class BugsController extends BaseController {
     async getAll(req, res, next) {
         try {
             let data = await bugService.getAll(req.userInfo.email)
+            console.log(data)
             return res.send(data)
         }
         catch (err) { next(err) }
@@ -41,12 +42,10 @@ export class BugsController extends BaseController {
     async edit(req, res, next) {
         try {
             let data = await bugService.edit(req.params.id, req.userInfo.email, req.body)
-            return res.sent(data)
-        } catch (error) {
-            next(error)
-
-        }
+            return res.send(data)
+        } catch (error) { next(error) }
     }
+
     async delete(req, res, next) {
         try {
             await bugService.delete(req.params.id, req.userInfo.email)

@@ -3,7 +3,7 @@ import { BadRequest } from "../utils/Errors"
 
 class BugService {
     async getAll(userEmail) {
-        return await dbContext.Bugs.find({ creatorEmail: userEmail }).populate("creator")
+        return await dbContext.Bugs.find({ creatorEmail: userEmail }).populate("creator", "name picture")
     }
 
     async getById(id, userEmail) {
@@ -11,6 +11,7 @@ class BugService {
         if (!data) {
             throw new BadRequest("Invalid Id")
         }
+        return data
     }
 
     async create(rawData) {

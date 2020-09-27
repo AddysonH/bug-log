@@ -1,12 +1,16 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <h1>Welcome to Your Vue.js App</h1>
+    <h1>This is the home page</h1>
+    <form>
+      <input type="text" placeholder="title" />
+      <input type="textarea" placeholder="text here" />
+      <button type="submit">submit</button>
+    </form>
   </div>
 </template>
 
 <script>
 export default {
-  name: "home"
+  name: "home",
 };
 </script>
