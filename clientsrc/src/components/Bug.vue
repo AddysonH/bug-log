@@ -1,5 +1,12 @@
 <template>
-  <h1>{{ bugData.title }}</h1>
+  <div>
+    <router-link :to="{ name: 'bug', params: { bugId: bugData._id } }">
+      <td>{{ bugData.title }}</td>
+    </router-link>
+    <td>{{ bugData.creator.name }}</td>
+    <td>{{ bugData.closed }}</td>
+    <td>{{ bugData.updatedAt }}</td>
+  </div>
 </template>
 
 <script>
@@ -13,3 +20,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+td {
+  padding: 8px;
+}
+</style>
