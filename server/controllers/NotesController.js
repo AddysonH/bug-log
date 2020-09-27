@@ -13,6 +13,8 @@ export class NotesController extends BaseController {
             .delete('/:id', this.delete)
     }
 
+
+
     async create(req, res, next) {
         try {
             req.body.creatorEmail = req.userInfo.email

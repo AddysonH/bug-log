@@ -1,6 +1,10 @@
 <template>
-  <div v-if="bug._id">
+  <div v-if="bug._id" class="bg-light">
+    <div>{{ bug.title }}</div>
+    <div>{{ bug.creatorEmail }}</div>
     <div>{{ bug.description }}</div>
+    <div>{{ bug.closed }}</div>
+
     <p>This is detail page</p>
   </div>
 </template>
@@ -21,3 +25,6 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+</style>
