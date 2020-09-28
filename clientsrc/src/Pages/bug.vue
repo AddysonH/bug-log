@@ -19,10 +19,19 @@
         {{ bug.description }}
       </div>
     </div>
+    <div>
+      <div>
+        <h3>Notes</h3>
+      </div>
+      <div>
+        <NoteComp v-for="note in notes" :key="note._id" :noteData="note" />
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
+import NoteComp from "../components/NoteComp";
 export default {
   name: "bug",
   data() {
@@ -30,11 +39,19 @@ export default {
   },
   mounted() {
     this.$store.dispatch("setActive", this.$route.params.bugId);
+    this.$store.dispatch("getNotesByBugId", this.bugId);
   },
   computed: {
     bug() {
       return this.$store.state.activeBug;
     },
+    notes() {
+      return this.$store.state.notes;
+    },
+  },
+  props: ["bugId"],
+  components: {
+    NoteComp,
   },
 };
 </script>
