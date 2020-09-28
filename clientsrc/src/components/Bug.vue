@@ -1,11 +1,19 @@
 <template>
-  <div>
-    <router-link :to="{ name: 'bug', params: { bugId: bugData._id } }">
-      <td>{{ bugData.title }}</td>
-    </router-link>
-    <td>{{ bugData.creator.name }}</td>
-    <td>{{ bugData.closed }}</td>
-    <td>{{ bugData.updatedAt }}</td>
+  <div class="row justify-content-center">
+    <div class="col-3">
+      <router-link :to="{ name: 'bug', params: { bugId: bugData._id } }">
+        <p>{{ bugData.title }}</p>
+      </router-link>
+    </div>
+    <div class="col-3">
+      <p>{{ bugData.creator.name }}</p>
+    </div>
+    <div>
+      <p class="col-3">{{ bugData.closed }}</p>
+    </div>
+    <div>
+      <p class="col-3">{{ bugData.updatedAt }}</p>
+    </div>
   </div>
 </template>
 

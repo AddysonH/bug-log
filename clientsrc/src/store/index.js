@@ -22,7 +22,10 @@ export default new Vuex.Store({
     },
     setActiveBug(state, activeBug) {
       state.activeBug = activeBug
-    }
+    },
+    addBug(state, bug) {
+      state.bugs.push(bug)
+    },
   },
   actions: {
     setBearer({ }, bearer) {
@@ -46,6 +49,18 @@ export default new Vuex.Store({
       } catch (error) {
         console.error(error)
       }
+    },
+    async addBug({ commit, dispatch }, newBug) {
+      try {
+        let res = await api.post('bugs', newBug)
+        res.data.creator = this.state.profile
+        commit("addBug", res.data)
+        commit("setActiveBug", res.data)
+        router.push({ name: "bug", params: { id: res.data._id } })
+      } catch (error) {
+        console.error(error)
+      }
+
     },
     async setActive({ commit, dispatch }, bugId) {
       try {

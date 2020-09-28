@@ -1,11 +1,24 @@
 <template>
-  <div v-if="bug._id" class="bg-light">
-    <div>{{ bug.title }}</div>
-    <div>{{ bug.creatorEmail }}</div>
-    <div>{{ bug.description }}</div>
-    <div>{{ bug.closed }}</div>
+  <div class="fix container-fluid" v-if="bug._id">
+    <div class="row justify-content-center">
+      <div class="col-6">
+        {{ bug.title }}
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-6">
+        {{ bug.creatorEmail }}
+      </div>
+      <div class="col-6">
+        {{ bug.closed }}
+      </div>
+    </div>
 
-    <p>This is detail page</p>
+    <div class="row justify-content-center">
+      <div class="col-12 card">
+        {{ bug.description }}
+      </div>
+    </div>
   </div>
 </template>
 
@@ -27,4 +40,9 @@ export default {
 </script>
 
 <style scoped>
+.fix {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
 </style>

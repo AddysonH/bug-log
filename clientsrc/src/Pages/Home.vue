@@ -1,26 +1,29 @@
 <template>
-  <div class="home container-fluid bg-light">
-    <form>
-      <input type="text" placeholder="title" />
-      <input type="textarea" placeholder="text here" />
-      <button type="submit">submit</button>
-    </form>
-
-    <div class="row">
-      <h1 class="text-center">Bugs</h1>
+  <div class="home container-fluid">
+    <div class="row justify-content-center my-3">
+      <form class="card col-3" @submit.prevent="addBug">
+        <div class="card-body">
+          <input type="text" placeholder="title" v-model="newBug.title" />
+          <input
+            type="textarea"
+            placeholder="text here"
+            v-model="newBug.description"
+          />
+          <button type="submit">submit</button>
+        </div>
+      </form>
     </div>
-    <div class="col-12 justify-content-center">
-      <table>
-        <tr>
-          <th>Title</th>
-          <th>Reported By</th>
-          <th>status</th>
-          <th>Last Modified</th>
-        </tr>
-        <tr>
-          <bug v-for="bug in bugs" :key="bug._id" :bugData="bug" />
-        </tr>
-      </table>
+    <div class="row justify-content-center">
+      <h1>Bugs</h1>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-3"><h2>Title</h2></div>
+      <div class="col-3"><h2>Reported By</h2></div>
+      <div class="col-3"><h2>status</h2></div>
+      <div class="col-3"><h2>Last Modified</h2></div>
+    </div>
+    <div>
+      <bug v-for="bug in bugs" :key="bug._id" :bugData="bug" />
     </div>
   </div>
 </template>
@@ -29,6 +32,11 @@
 import Bug from "../components/Bug.vue";
 export default {
   name: "home",
+  data() {
+    return {
+      newBug: {},
+    };
+  },
   mounted() {
     this.$store.dispatch("getBugs");
   },
@@ -39,6 +47,12 @@ export default {
   },
   components: {
     Bug,
+  },
+  methods: {
+    addBug() {
+      this.$store.dispatch("addBug", this.newBug);
+      this.newBug = {};
+    },
   },
 };
 </script>
