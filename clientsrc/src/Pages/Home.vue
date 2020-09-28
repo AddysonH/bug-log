@@ -37,9 +37,7 @@ export default {
       newBug: {},
     };
   },
-  mounted() {
-    this.$store.dispatch("getBugs");
-  },
+  mounted() {},
   computed: {
     bugs() {
       return this.$store.state.bugs;

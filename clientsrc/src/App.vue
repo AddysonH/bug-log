@@ -15,6 +15,7 @@ export default {
     if (this.$auth.isAuthenticated) {
       this.$store.dispatch("setBearer", this.$auth.bearer);
       this.$store.dispatch("getProfile");
+      this.$store.dispatch("getBugs");
     }
   },
   components: {

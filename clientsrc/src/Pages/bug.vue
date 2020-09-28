@@ -27,6 +27,26 @@
         <NoteComp v-for="note in notes" :key="note._id" :noteData="note" />
       </div>
     </div>
+    <!-- <form @submit.prevent="editBug">
+      <div>
+        <input
+          type="text"
+          placeholder="New Bug Title..."
+          v-model="editBugData.title"
+        />
+        <button type="submit">Edit</button>
+      </div>
+    </form> -->
+    <div class="row">
+      <form @submit.prevent="addNote">
+        <input
+          type="text"
+          placeholder="New Note"
+          v-model="noteData.description"
+        />
+        <button type="submit">Add</button>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -35,7 +55,9 @@ import NoteComp from "../components/NoteComp";
 export default {
   name: "bug",
   data() {
-    return {};
+    return {
+      noteData: {},
+    };
   },
   mounted() {
     this.$store.dispatch("setActive", this.$route.params.bugId);
@@ -48,6 +70,22 @@ export default {
     notes() {
       return this.$store.state.notes;
     },
+  },
+  methods: {
+    addNote() {
+      this.$store.dispatch("addNote", {
+        bugId: this.$route.params.bugId,
+        description: this.noteData.description,
+      });
+      this.noteData = {};
+    },
+    // editBug() {
+    //   this.$store.dispatch("editBug", {
+    //     id: this.bugProp.id,
+    //     title: this.editBugData.title,
+    //     bugId: this.bugProp.bugId,
+    //   });
+    // },
   },
   props: ["bugId"],
   components: {

@@ -1,6 +1,6 @@
 <template>
   <div class="row justify-content-center">
-    <div class="col-3">
+    <div class="col-3" v-if="bugData._id">
       <router-link :to="{ name: 'bug', params: { bugId: bugData._id } }">
         <p>{{ bugData.title }}</p>
       </router-link>
@@ -26,8 +26,12 @@ export default {
       required: true,
     },
   },
+  methods: {},
 };
 </script>
+
+
+
 
 <style scoped>
 td {
