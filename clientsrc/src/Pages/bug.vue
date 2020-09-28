@@ -2,7 +2,7 @@
   <div class="fix container-fluid" v-if="bug._id">
     <div class="row justify-content-center">
       <div class="col-6">
-        {{ bug.title }}
+        <h1>{{ bug.title }}</h1>
       </div>
     </div>
     <div class="row justify-content-center">
@@ -20,23 +20,30 @@
       </div>
     </div>
     <div>
-      <div>
+      <div class="row my-3">
+        <form @submit.prevent="editBug">
+          <div>
+            <input
+              type="text"
+              placeholder="New Bug Title..."
+              v-model="editBugData.title"
+            />
+            <input
+              type="text"
+              placeholder="New Bug Title..."
+              v-model="editBugData.title"
+            />
+            <button type="submit">Edit</button>
+          </div>
+        </form>
+      </div>
+      <div class="my-3">
         <h3>Notes</h3>
       </div>
       <div>
         <NoteComp v-for="note in notes" :key="note._id" :noteData="note" />
       </div>
     </div>
-    <!-- <form @submit.prevent="editBug">
-      <div>
-        <input
-          type="text"
-          placeholder="New Bug Title..."
-          v-model="editBugData.title"
-        />
-        <button type="submit">Edit</button>
-      </div>
-    </form> -->
     <div class="row">
       <form @submit.prevent="addNote">
         <input type="text" placeholder="New Note" v-model="noteData.content" />
@@ -53,6 +60,7 @@ export default {
   data() {
     return {
       noteData: {},
+      editBugData: {},
     };
   },
   mounted() {
@@ -75,13 +83,13 @@ export default {
       });
       this.noteData = {};
     },
-    // editBug() {
-    //   this.$store.dispatch("editBug", {
-    //     id: this.bugProp.id,
-    //     title: this.editBugData.title,
-    //     bugId: this.bugProp.bugId,
-    //   });
-    // },
+    editBug() {
+      this.$store.dispatch("editBug", {
+        id: this.bugId,
+        title: this.editBugData.title,
+      });
+      this.editBugData = {};
+    },
   },
   props: ["bugId"],
 

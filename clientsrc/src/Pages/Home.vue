@@ -16,7 +16,7 @@
     <div class="row justify-content-center">
       <h1>Bugs</h1>
     </div>
-    <div class="row justify-content-center">
+    <div class="row text-align-center">
       <div class="col-3"><h2>Title</h2></div>
       <div class="col-3"><h2>Reported By</h2></div>
       <div class="col-3"><h2>status</h2></div>

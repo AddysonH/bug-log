@@ -60,7 +60,8 @@ export default new Vuex.Store({
         res.data.creator = this.state.profile
         commit("addBug", res.data)
         commit("setActiveBug", res.data)
-        router.push({ name: "bug", params: { id: res.data._id } })
+
+        router.push({ name: "bug", params: { bugId: res.data._id } })
       } catch (error) {
         console.error(error)
       }
@@ -99,14 +100,14 @@ export default new Vuex.Store({
         console.error(error)
       }
     },
-    // async editBug({ commit, dispatch }, bugData) {
-    //   try {
-    //     await api.put('bugs' + bugData.id, { title: bugData.title })
-    //     dispatch('getBugs', bugData.bugId)
-    //   } catch (error) {
-    //     console.error(error)
-    //   }
-    // },
+    async editBug({ commit, dispatch }, bugData) {
+      try {
+        await api.put('bugs/' + bugData.id, { title: bugData.title })
+        dispatch('getBugs', bugData)
+      } catch (error) {
+        console.error(error)
+      }
+    },
 
   }
 });

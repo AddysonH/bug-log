@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="row card">
+    <div class="row card my-3">
       <div>
         <p>{{ noteData.content }}</p>
       </div>
