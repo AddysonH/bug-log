@@ -12,6 +12,7 @@
 <script>
 export default {
   name: "NoteComp",
+
   props: {
     noteData: {
       type: Object,

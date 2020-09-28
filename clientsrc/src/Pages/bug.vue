@@ -39,11 +39,7 @@
     </form> -->
     <div class="row">
       <form @submit.prevent="addNote">
-        <input
-          type="text"
-          placeholder="New Note"
-          v-model="noteData.description"
-        />
+        <input type="text" placeholder="New Note" v-model="noteData.content" />
         <button type="submit">Add</button>
       </form>
     </div>
@@ -51,7 +47,7 @@
 </template>
 
 <script>
-import NoteComp from "../components/NoteComp";
+import NoteComp from "../components/NoteComp.vue";
 export default {
   name: "bug",
   data() {
@@ -75,7 +71,7 @@ export default {
     addNote() {
       this.$store.dispatch("addNote", {
         bugId: this.$route.params.bugId,
-        description: this.noteData.description,
+        content: this.noteData.content,
       });
       this.noteData = {};
     },
@@ -88,6 +84,7 @@ export default {
     // },
   },
   props: ["bugId"],
+
   components: {
     NoteComp,
   },
