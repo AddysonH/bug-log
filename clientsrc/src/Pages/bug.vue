@@ -9,8 +9,10 @@
       <div class="col-6">
         {{ bug.creatorEmail }}
       </div>
+      <!--@change="" edit box and check box should vanish-->
       <div class="col-6">
-        {{ bug.closed }}
+        <input type="checkbox" v-model="bug.closed" @change="updateStatus" />
+        <label class="pl-3">{{ bug.closed }}</label>
       </div>
     </div>
 
@@ -28,14 +30,10 @@
               placeholder="New Bug Title..."
               v-model="editBugData.title"
             />
-            <input
-              type="text"
-              placeholder="New Bug Title..."
-              v-model="editBugData.title"
-            />
             <button type="submit">Edit</button>
           </div>
         </form>
+        <form @submit.prevent="editBug"></form>
       </div>
       <div class="my-3">
         <h3>Notes</h3>
@@ -57,10 +55,12 @@
 import NoteComp from "../components/NoteComp.vue";
 export default {
   name: "bug",
+  //Store checked data pushed here
   data() {
     return {
       noteData: {},
       editBugData: {},
+      checked: [],
     };
   },
   mounted() {
@@ -89,6 +89,14 @@ export default {
         title: this.editBugData.title,
       });
       this.editBugData = {};
+    },
+
+    //What happens when the check is checked
+    updateStatus() {
+      this.$store.dispatch("updateStatus", {
+        id: this.bugId,
+        closed: this.checked.closed,
+      });
     },
   },
   props: ["bugId"],

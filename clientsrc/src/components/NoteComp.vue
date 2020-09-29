@@ -3,6 +3,7 @@
     <div class="row card my-3">
       <div>
         <p>{{ noteData.content }}</p>
+        <p>{{ noteData.creator.name }}</p>
       </div>
       <button @click="deleteNote">del</button>
     </div>

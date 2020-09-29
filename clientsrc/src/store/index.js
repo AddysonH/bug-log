@@ -85,8 +85,11 @@ export default new Vuex.Store({
     },
     async deleteNote({ commit, dispatch }, noteData) {
       try {
-        await api.delete('notes/' + noteData.id)
-        dispatch('getNotesByBugId', noteData.bugId)
+        if (await window.confirm("Are you sure?")) {
+
+          await api.delete('notes/' + noteData.id)
+          dispatch('getNotesByBugId', noteData.bugId)
+        }
       } catch (error) {
         console.error(error)
       }
@@ -108,6 +111,16 @@ export default new Vuex.Store({
         console.error(error)
       }
     },
+    async updateStatus({ commit, dispatch }, bugData) {
+      try {
+        if (await window.confirm("Are you sure?")) {
+          await api.put('bugs/' + bugData.id, { closed: bugData.closed })
+          dispatch('getBugs', bugData)
+        }
+      } catch (error) {
+        console.error(error)
+      }
+    }
 
   }
 });

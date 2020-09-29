@@ -9,7 +9,7 @@
       <p>{{ bugData.creator.name }}</p>
     </div>
     <div>
-      <p class="col-3">{{ bugData.closed }}</p>
+      <p class="col-3">completed: {{ bugData.closed }}</p>
     </div>
     <div>
       <p class="col-3">{{ bugData.updatedAt }}</p>
