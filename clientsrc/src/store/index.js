@@ -47,6 +47,7 @@ export default new Vuex.Store({
       }
     },
     async getBugs({ commit, dispatch }) {
+      console.log("I'm getting bugs.")
       try {
         let res = await api.get('bugs')
         commit('setBugs', res.data)
@@ -70,7 +71,9 @@ export default new Vuex.Store({
     async setActive({ commit, dispatch }, bugId) {
       try {
         let res = await api.get("bugs/" + bugId)
-        commit("setActiveBug", res.data)
+        if (res.data.closed == true) {
+          commit("setActiveBug", res.data)
+        }
       } catch (error) {
         console.error(error)
       }
@@ -106,17 +109,15 @@ export default new Vuex.Store({
     async editBug({ commit, dispatch }, bugData) {
       try {
         await api.put('bugs/' + bugData.id, { title: bugData.title })
-        dispatch('getBugs', bugData)
+        dispatch('setActive', bugData.id)
       } catch (error) {
         console.error(error)
       }
     },
-    async updateStatus({ commit, dispatch }, bugData) {
+    async closeBug({ commit, dispatch }, bugData) {
       try {
-        if (await window.confirm("Are you sure?")) {
-          await api.put('bugs/' + bugData.id, { closed: bugData.closed })
-          dispatch('getBugs', bugData)
-        }
+        await api.delete('bugs/' + bugData.id)
+        dispatch('setActive', bugData.id)
       } catch (error) {
         console.error(error)
       }

@@ -11,8 +11,10 @@
       </div>
       <!--@change="" edit box and check box should vanish-->
       <div class="col-6">
-        <input type="checkbox" v-model="bug.closed" @change="updateStatus" />
-        <label class="pl-3">{{ bug.closed }}</label>
+        <div class="row">
+          <button id="completeButton" @click="closeBug">complete</button>
+          <p>{{ bug.closed }}</p>
+        </div>
       </div>
     </div>
 
@@ -30,7 +32,7 @@
               placeholder="New Bug Title..."
               v-model="editBugData.title"
             />
-            <button type="submit">Edit</button>
+            <button id="bugEditButton" type="submit">Edit</button>
           </div>
         </form>
         <form @submit.prevent="editBug"></form>
@@ -55,12 +57,10 @@
 import NoteComp from "../components/NoteComp.vue";
 export default {
   name: "bug",
-  //Store checked data pushed here
   data() {
     return {
       noteData: {},
       editBugData: {},
-      checked: [],
     };
   },
   mounted() {
@@ -69,6 +69,10 @@ export default {
   },
   computed: {
     bug() {
+      for (const property in this.$store.state.activeBug) {
+        console.log(`${property}: ${this.$store.state.activeBug[property]}`);
+      }
+
       return this.$store.state.activeBug;
     },
     notes() {
@@ -88,17 +92,15 @@ export default {
         id: this.bugId,
         title: this.editBugData.title,
       });
-      this.editBugData = {};
+      // this.editBugData = { title: this.editBugData.title };
     },
-
-    //What happens when the check is checked
-    updateStatus() {
-      this.$store.dispatch("updateStatus", {
+    closeBug() {
+      this.$store.dispatch("closeBug", {
         id: this.bugId,
-        closed: this.checked.closed,
       });
     },
   },
+
   props: ["bugId"],
 
   components: {

@@ -53,16 +53,17 @@ export default {
   methods: {
     async login() {
       await this.$auth.loginWithPopup();
-      if(this.$auth.isAuthenticated){
+      if (this.$auth.isAuthenticated) {
         this.$store.dispatch("setBearer", this.$auth.bearer);
         this.$store.dispatch("getProfile");
+        this.$store.dispatch("getBugs");
       }
     },
     async logout() {
       this.$store.dispatch("resetBearer");
-      await this.$auth.logout({returnTo: window.location.origin});
-    }
-  }
+      await this.$auth.logout({ returnTo: window.location.origin });
+    },
+  },
 };
 </script>
 

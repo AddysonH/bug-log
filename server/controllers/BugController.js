@@ -57,8 +57,8 @@ export class BugController extends BaseController {
 
     async delete(req, res, next) {
         try {
-            await bugService.delete(req.params.id, req.userInfo.email)
-            return res.send("Successfully deleted")
+            let data = await bugService.delete(req.params.id, req.userInfo.email, req.body)
+            return res.send(data)
         } catch (error) {
             next(error)
 
