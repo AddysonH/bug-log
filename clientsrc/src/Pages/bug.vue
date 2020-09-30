@@ -12,7 +12,9 @@
       <!--@change="" edit box and check box should vanish-->
       <div class="col-6">
         <div class="row">
-          <button id="completeButton" @click="closeBug">complete</button>
+          <button @click="closeBug" :disabled="bug.closed == true">
+            complete
+          </button>
           <p>{{ bug.closed }}</p>
         </div>
       </div>
@@ -32,7 +34,7 @@
               placeholder="New Bug Title..."
               v-model="editBugData.title"
             />
-            <button id="bugEditButton" type="submit">Edit</button>
+            <button type="submit" :disabled="bug.closed == true">Edit</button>
           </div>
         </form>
         <form @submit.prevent="editBug"></form>
